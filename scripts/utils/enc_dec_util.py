@@ -1,6 +1,7 @@
 from cryptography.fernet import Fernet
 from scripts.config import ENCRY_DECRY_CONF
 
+
 class EncrDecUtil:
     def __init__(self):
         self.key = ENCRY_DECRY_CONF.FERNET_KEY

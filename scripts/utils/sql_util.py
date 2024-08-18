@@ -1,10 +1,12 @@
-from fastapi.encoders import jsonable_encoder
-from sqlalchemy.orm import Session
-from sqlalchemy import and_
 import logging as logger
 
+from fastapi.encoders import jsonable_encoder
+from sqlalchemy import and_
+from sqlalchemy.orm import Session
+
+
 class SQLUtil:
-    def __init__(self, session:Session):
+    def __init__(self, session: Session):
         self.session = session
 
     def __del__(self):
@@ -48,10 +50,11 @@ class SQLUtil:
 
     def delete_data(self, filter_dict, table):
         with self.session as session:
-            filters = [getattr(table, key) == value for key, value in filter_dict.items()]
+            filters = [
+                getattr(table, key) == value for key, value in filter_dict.items()
+            ]
             query = session.query(table).filter(and_(*filters))
             records = query.all()
             for record in records:
                 session.delete(record)
             session.commit()
-

@@ -1,8 +1,10 @@
 import datetime
-from sqlalchemy import MetaData, create_engine, Engine, TIMESTAMP
-from sqlalchemy_utils import create_database, database_exists
-from sqlalchemy.orm import Session, DeclarativeBase
+
 from scripts.config import SQL_CONF
+from sqlalchemy import TIMESTAMP, Engine, MetaData, create_engine
+from sqlalchemy.orm import DeclarativeBase, Session
+from sqlalchemy_utils import create_database, database_exists
+
 
 class Base(DeclarativeBase):
     """
@@ -10,6 +12,7 @@ class Base(DeclarativeBase):
     """
 
     type_annotation_map = {datetime.datetime: TIMESTAMP(timezone=True)}
+
 
 class SessionUtil:
     def __init__(self):
@@ -36,11 +39,13 @@ class SessionUtil:
                 future=True,
             )
             self.user_engines[database] = engine
-        self.create_default_dependencies(_engine=self.user_engines[database], metadata=metadata or Base.metadata)
+        self.create_default_dependencies(
+            _engine=self.user_engines[database], metadata=metadata or Base.metadata
+        )
         return self.user_engines[database]
 
     @staticmethod
-    def create_default_dependencies(_engine:Engine, metadata:MetaData):
+    def create_default_dependencies(_engine: Engine, metadata: MetaData):
         if not database_exists(_engine.url):
             create_database(_engine.url)
         metadata.create_all(_engine, checkfirst=True)

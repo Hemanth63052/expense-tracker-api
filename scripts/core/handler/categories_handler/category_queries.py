@@ -1,5 +1,6 @@
-from sqlalchemy import select, and_
 from scripts.db.sql_table_orm_schemas import CategoriesOrmSchema
+from sqlalchemy import and_, select
+
 
 class CategoryQueries:
 
@@ -10,7 +11,8 @@ class CategoryQueries:
             where_conditions.append(CategoriesOrmSchema.category_id == category_id)
         if title:
             where_conditions.append(CategoriesOrmSchema.title == title)
-        return select(CategoriesOrmSchema.category_id.label("value"),
-                      CategoriesOrmSchema.title.label("label"),
-                      CategoriesOrmSchema.description).where(and_(*where_conditions))
-
+        return select(
+            CategoriesOrmSchema.category_id.label("value"),
+            CategoriesOrmSchema.title.label("label"),
+            CategoriesOrmSchema.description,
+        ).where(and_(*where_conditions))

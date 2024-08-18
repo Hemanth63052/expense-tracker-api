@@ -1,7 +1,10 @@
-from fastapi import Response, Request
+from fastapi import Request, Response
 from pydantic import BaseModel
+
+
 class MetaInfoSchema(BaseModel):
     user_id: str
+
 
 class CookieDecorator:
 

@@ -1,6 +1,8 @@
-from pydantic import BaseModel, Field
 from typing import Optional
+
 import shortuuid
+from pydantic import BaseModel, Field
+
 
 class CreateExpense(BaseModel):
     user_id: Optional[str] = Field(title="Category created by user", default="")
@@ -10,6 +12,3 @@ class CreateExpense(BaseModel):
     category_id: str = Field(title="Category Id of expense")
     expense_id: str = Field(default=shortuuid.ShortUUID().random(length=6))
     expense_name: str = Field(title="Expense Name")
-
-
-
