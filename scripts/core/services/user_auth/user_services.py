@@ -13,6 +13,14 @@ from sqlalchemy.orm import Session
 def signup(
     sign_up_payload: SignUpSchema, db_session: Session = Depends(get_db_session)
 ):
+    """
+    Create a new user account.
+    Args:
+        db_session (Session): The database session.
+        sign_up_payload (SignUpSchema): The payload for creating a new user account.
+    :returns
+        DefaultResponse: A response object containing the created user data and a success message.
+    """
     try:
         return AuthenticationHandler().signup(
             request_payload=sign_up_payload, db_session=db_session
@@ -29,6 +37,16 @@ def login(
     response: Response,
     db_session: Session = Depends(get_db_session),
 ):
+    """
+    Log in to an existing user account.
+    Args:
+        login_payload (LoginSchema): The payload for logging in to an existing user account.
+        request (Request): The request object.
+        response (Response): The response object.
+        db_session (Session): The database session.
+    :returns
+        DefaultResponse: A response object containing the user data and a success message.
+    """
     try:
         return AuthenticationHandler().login(
             login_payload=login_payload,

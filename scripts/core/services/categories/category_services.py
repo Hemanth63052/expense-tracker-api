@@ -2,6 +2,7 @@ import logging
 
 from fastapi import Depends
 from scripts.core.handler.categories_handler.category import CategoryHandler
+from scripts.core.handler.response_models import DefaultFailedResponse
 from scripts.core.handler.sql_handler import get_db_session
 from scripts.core.schemas.category import CategoryCreate
 from scripts.core.services.categories import category_router
@@ -23,6 +24,7 @@ def get_categories_list(
         )
     except Exception as e:
         logging.exception(f"failed in getting categories for user as {e}")
+        return DefaultFailedResponse(message="failed in getting categories for user")
 
 
 @category_router.get("/categories/{id}")
@@ -37,6 +39,7 @@ def get_category_info_by_id(
         )
     except Exception as e:
         logging.exception(f"failed in getting categories for user as {e}")
+        return DefaultFailedResponse(message="failed in getting categories for user")
 
 
 @category_router.post("/categories/create")
@@ -51,6 +54,7 @@ def create_category(
         )
     except Exception as e:
         logging.exception(f"failed in getting categories for user as {e}")
+        return DefaultFailedResponse(message="failed in creating category for user")
 
 
 @category_router.put("/categories/update/{id}")
@@ -67,6 +71,7 @@ def update_category(
         )
     except Exception as e:
         logging.exception(f"failed in getting categories for user as {e}")
+        return DefaultFailedResponse(message="failed in updating category for user")
 
 
 @category_router.delete("/categories/delete/{id}")
@@ -81,3 +86,4 @@ def delete_category(
         )
     except Exception as e:
         logging.exception(f"failed in getting categories for user as {e}")
+        return DefaultFailedResponse(message="failed in deleting category for user")

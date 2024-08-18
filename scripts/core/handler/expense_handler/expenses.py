@@ -14,6 +14,13 @@ class ExpenseHandler:
         self.expense_queries = ExpenseQueries()
 
     def get_expense_list_for_user(self, db_session: Session):
+        """
+        Retrieve the expense list for a specific user.
+        Args:
+            db_session (Session):
+        :returns
+            DefaultResponse: A response object containing the expense list data and a success message.
+        """
         sql_util = SQLUtil(session=db_session)
         data = sql_util.fetch_as_json(
             self.expense_queries.get_expense_query(user_id=self.user_id)
@@ -23,6 +30,15 @@ class ExpenseHandler:
     def get_expense_by_category_and_expense_id(
         self, db_session: Session, category_id: str, expense_id: str
     ):
+        """
+        Retrieve the expense list for a specific user by category id and expense id.
+        Args:
+            db_session (Session): The database session.
+            category_id (str): The id of the category.
+            expense_id (str): The id of the expense.
+        :returns
+            DefaultResponse: A response object containing the expense list data and a success message.
+        """
         sql_util = SQLUtil(session=db_session)
         data = sql_util.fetch_as_json(
             self.expense_queries.get_expense_query(
@@ -32,6 +48,14 @@ class ExpenseHandler:
         return DefaultResponse(data=data, message="success")
 
     def get_expenses_list_of_category(self, db_session: Session, category_id: str):
+        """
+        Retrieve the expense list for a specific user by category id.
+        Args:
+            db_session (Session): The database session.
+            category_id (str): The id of the category.
+        :returns
+            DefaultResponse: A response object containing the expense list data and a success message.
+        """
         sql_util = SQLUtil(session=db_session)
         data = sql_util.fetch_as_json(
             self.expense_queries.get_expense_query(
@@ -41,6 +65,14 @@ class ExpenseHandler:
         return DefaultResponse(data=data, message="success")
 
     def get_expense_by_id(self, db_session: Session, expense_id: str):
+        """
+        Retrieve the expense list for a specific user by expense id.
+        Args:
+            db_session (Session): The database session.
+            expense_id (str): The id of the expense.
+        :returns
+            DefaultResponse: A response object containing the expense list data and a success message.
+        """
         sql_util = SQLUtil(session=db_session)
         data = sql_util.fetch_as_json(
             self.expense_queries.get_expense_query(
@@ -50,6 +82,14 @@ class ExpenseHandler:
         return DefaultResponse(data=data, message="success")
 
     def create_new_expense(self, db_session: Session, create_payload: CreateExpense):
+        """
+        Create a new expense for a specific user.
+        Args:
+            db_session (Session): The database session.
+            create_payload (CreateExpense): The payload for creating a new expense.
+        :returns
+            DefaultResponse: A response object containing the created expense data and a success message.
+        """
         create_payload.user_id = self.user_id
         sql_util = SQLUtil(session=db_session)
         data = sql_util.fetch_as_json(
@@ -69,6 +109,14 @@ class ExpenseHandler:
     def update_existing_expense(
         self, db_session: Session, update_payload: CreateExpense
     ):
+        """
+        Update an existing expense for a specific user.
+        Args:
+            db_session (Session): The database session.
+            update_payload (CreateExpense): The payload for updating an existing expense.
+        :returns
+            DefaultResponse: A response object containing the updated expense data and a success message.
+        """
         update_payload.user_id = self.user_id
         sql_util = SQLUtil(session=db_session)
         data = sql_util.fetch_as_json(
@@ -97,6 +145,15 @@ class ExpenseHandler:
     def delete_existing_expense(
         self, db_session: Session, expense_id: str, category_id: str
     ):
+        """
+        Delete an existing expense for a specific user.
+        Args:
+            db_session (Session): The database session.
+            expense_id (str): The id of the expense.
+            category_id (str): The id of the category.
+        :returns
+            DefaultResponse: A response object containing the deleted expense data and a success message.
+        """
         sql_util = SQLUtil(session=db_session)
         sql_util.delete_data(
             {
